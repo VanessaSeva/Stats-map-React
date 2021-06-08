@@ -5,7 +5,7 @@ import Stats from './components/Stats/Stats'
 
 
 
-function App() {
+function App({countryInfo, countries}) {
 
   
 
@@ -18,7 +18,7 @@ function App() {
 
   return (
     <div className="App">
-      <MapLeaflet />
+      <MapLeaflet countrieInfo={countryInfo} country={countries}/>
       <Stats />
     </div>
   );

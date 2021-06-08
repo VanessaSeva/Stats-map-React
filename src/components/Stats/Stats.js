@@ -1,5 +1,8 @@
 import React,{useState, useEffect} from 'react'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import './../Stats/Stats.css'
+
+
 
 
 
@@ -10,9 +13,11 @@ export default function Stats() {
 const [countryInfo, setCountryInfo] = useState({});
 const [countries, setCountries] = useState([])
 
+const base_URL = 'https://disease.sh/v3/covid-19/historical/all?lastdays=all'
+const base_URL_Countries = 'https://disease.sh/v3/covid-19/countries'
 
 useEffect(() => {
-    fetch('https://disease.sh/v3/covid-19/historical/all?lastdays=all')
+    fetch(base_URL)
     .then((response)=>response.json())
     .then((data)=> {
     const countryInfo = data;
@@ -33,7 +38,7 @@ useEffect(() => {
 
 useEffect(() => {
     
-    fetch('https://disease.sh/v3/covid-19/countries')
+    fetch(base_URL_Countries)
     .then((response)=>response.json())
     .then((data)=> {
         const countries = data.map((country) => (
@@ -54,33 +59,23 @@ useEffect(() => {
 
 
     return (
-     <div>
-            <div>
-           {
-           countries.map(country => (
-                   <div key={country.id}>{country.name}</div>
-               )
-            )
-           }
-            </div>
+     <div className="container">
+          
 
-           <div>
+           <div className="wrapper">
             { 
                 Object.keys(countryInfo).map((statsType, i) => (
             <div>
                 <h2 key={i}>{statsType}</h2>  
         
-                <ul>
+             <div className="wrapper">
+              <select>
                 { Object.keys(countryInfo[statsType]).map((statsDate, j) => 
-                    <li key={j}>{statsDate + ' ' + countryInfo[statsType][statsDate]} </li>
+                    <option key={j}> le {statsDate + ' il y a eu ' + countryInfo[statsType][statsDate] + ' ' + ' ' + 'cas'} </option>
                         )}
-                { Object.keys(countryInfo[statsType]).map((statsDate, k) =>  
-                    <li key={k}>{statsDate + ' ' + countryInfo[statsType][statsDate]}</li>
-                        )}
-                { Object.keys(countryInfo[statsType]).map((statsDate, k) =>  
-                    <li key={k}>{statsDate + ' ' + countryInfo[statsType][statsDate]}</li>
-                        )}
-                </ul>
+                      </select>
+                    </div>
+                    
             </div>
     
     ))

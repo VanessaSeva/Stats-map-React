@@ -5,10 +5,12 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import Stats from './../Stats/Stats'
 
 
-export default function MapLeaflet() {
+export default function MapLeaflet({countryInfo, countries}) {
+
+    const position = [46.232192999999995, 2.209666999999996]
 
     return(
-        <MapContainer center={[46.232192999999995, 2.209666999999996]} zoom={5}>
+        <MapContainer center={position} zoom={5}>
         <TileLayer
         noWrap={true}
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -16,7 +18,13 @@ export default function MapLeaflet() {
 
         
         />
-        <Marker position={[48.866667, 2.333333]}/>
+        <Marker position={[48.866667, 2.333333]}>
+        <Popup>
+       
+        </Popup>
+
+        </Marker>
+      
         <Stats />
         </MapContainer>
     )
